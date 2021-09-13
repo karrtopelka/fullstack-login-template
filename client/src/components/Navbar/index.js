@@ -1,11 +1,13 @@
-import React from 'react';
-import { Button, Spacer, Text, useToasts } from '@geist-ui/react';
+import React, { useContext } from 'react';
+import { Avatar, Button, Spacer, Text, useToasts } from '@geist-ui/react';
 import { Hexagon, Lambda, Octagon } from '@geist-ui/react-icons';
 import './navbar.scss';
-import { NavLink, useHistory } from 'react-router-dom';
+import { NavLink, useHistory, Link } from 'react-router-dom';
 import { observer } from 'mobx-react';
+import { UserContext } from '../..';
 
-const Navbar = observer(({ user }) => {
+const Navbar = observer(() => {
+  const user = useContext(UserContext);
   const [, setToast] = useToasts();
   const history = useHistory();
 
@@ -29,6 +31,16 @@ const Navbar = observer(({ user }) => {
     }
   };
 
+  const renderName = () => {
+    if (user.name) {
+      if (user.lastName) {
+        return `${user.name} ${user.lastName}`;
+      }
+      return user.name;
+    }
+    return user.email;
+  };
+
   return (
     <div className='navbar'>
       <div className='navbar__header'>
@@ -42,7 +54,13 @@ const Navbar = observer(({ user }) => {
       <div className='navbar__entry'>
         {user.isAuth ? (
           <>
-            <Text style={{ margin: 0 }}>{user.email}</Text>
+            <Link style={{ color: 'inherit' }} to={`/user?id=${user._id}`}>
+              <div style={{ display: 'flex' }}>
+                {user.avatar && <Avatar src={user.avatar} />}
+                <Spacer w={0.5} />
+                <Text style={{ margin: 0 }}>{renderName()}</Text>
+              </div>
+            </Link>
             <Spacer w={2} />
             <Button
               icon={<Octagon />}

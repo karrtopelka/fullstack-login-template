@@ -8,6 +8,9 @@ class User {
   lastName = '';
   isAuth = false;
   avatar = '';
+  age = null;
+  country = '';
+  region = '';
 
   constructor() {
     makeAutoObservable(this);
@@ -19,7 +22,14 @@ class User {
     this.name = user?.name;
     this.lastName = user?.lastName;
     this.avatar = user?.avatar;
+    this.age = user?.age;
+    this.country = user?.country;
+    this.region = user?.region;
     this.isAuth = true;
+  }
+
+  setByField(value, field) {
+    this[field] = value;
   }
 
   setEmail(email) {
@@ -38,12 +48,27 @@ class User {
     this.avatar = avatar;
   }
 
+  setAge(age) {
+    this.age = age;
+  }
+
+  setCountry(country) {
+    this.country = country;
+  }
+
+  setRegion(region) {
+    this.region = region;
+  }
+
   reset() {
     this._id = '';
     this.email = '';
     this.name = '';
     this.lastName = '';
     this.avatar = '';
+    this.age = null;
+    this.country = '';
+    this.region = '';
     this.isAuth = false;
   }
 }

@@ -19,6 +19,15 @@ const User = new Schema({
   avatar: {
     type: String,
   },
+  age: {
+    type: Number,
+  },
+  country: {
+    type: String,
+  },
+  region: {
+    type: String,
+  },
 });
 
 module.exports = model('User', User);

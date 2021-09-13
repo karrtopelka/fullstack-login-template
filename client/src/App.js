@@ -1,12 +1,16 @@
+import React, { useContext } from 'react';
 import './App.css';
 import { Page } from '@geist-ui/react';
-import { Footer, Login, Navbar, Registration } from './components';
+import { Navbar, Footer, Registration, Login, Home, UserPage } from './components';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import { useEffect } from 'react';
 import { auth } from './actions/user';
+import { UserContext } from '.';
 
-const App = observer(({ user }) => {
+const App = observer(() => {
+  const user = useContext(UserContext);
+
   useEffect(() => {
     const authenticate = async () => {
       const authentication = await auth();
@@ -22,18 +26,21 @@ const App = observer(({ user }) => {
     <Router>
       <Page>
         <Page.Header>
-          <Navbar user={user} />
+          <Navbar />
         </Page.Header>
         <Page.Content>
           <Switch>
             <Route path='/registration'>
-              <Registration user={user} />
+              <Registration />
             </Route>
             <Route path='/login'>
-              <Login user={user} />
+              <Login />
+            </Route>
+            <Route path='/user'>
+              <UserPage />
             </Route>
             <Route path='/'>
-              <h1>home page</h1>
+              <Home />
             </Route>
           </Switch>
         </Page.Content>

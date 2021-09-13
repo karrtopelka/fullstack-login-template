@@ -9,17 +9,22 @@
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "axios": "^0.21.1",
+    "country-list": "^2.2.0",
     "inter-ui": "^3.19.3",
     "mobx": "^6.3.3",
     "mobx-react": "^7.2.0",
     "node-sass": "4.14",
     "react": "^17.0.2",
+    "react-country-flag": "^2.3.1",
+    "react-country-region-selector": "^3.3.0",
     "react-dom": "^17.0.2",
+    "react-dropzone": "^11.3.4",
     "react-router-dom": "^5.2.1",
     "react-scripts": "4.0.3",
     "web-vitals": "^1.0.1"
   },
   "scripts": {
+    "prestart": "stylelint **/*.scss --fix",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -42,5 +47,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "stylelint": "^13.13.1",
+    "stylelint-scss": "^3.20.1"
   }
 }

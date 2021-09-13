@@ -1,10 +1,12 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { Button, Card, Grid, Input, Spacer, Text, useToasts } from '@geist-ui/react';
 import { Link, useHistory } from 'react-router-dom';
 import { login } from '../../actions/user';
 import './login.scss';
+import { UserContext } from '../..';
 
-const Login = ({ user }) => {
+const Login = () => {
+  const user = useContext(UserContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [response, setResponse] = useState({});
@@ -79,7 +81,7 @@ const Login = ({ user }) => {
             </Button>
           </form>
           <Card.Footer>
-            <Link to='/registration'>Don't have account yet? Sign up!</Link>
+            <Link to='/registration'>Don&apos;t have account yet? Sign up!</Link>
           </Card.Footer>
         </Card>
       </Grid>

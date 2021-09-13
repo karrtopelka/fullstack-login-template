@@ -1,0 +1,162 @@
+.userpage {
+	height: max-content;
+
+	&__wrapper {
+		display: flex;
+		height: max-content;
+	}
+
+	&__passport {
+		margin: 0 2% 0 0;
+		flex: 1;
+
+		.card {
+			height: 100% !important;
+		}
+
+		&_header {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			
+			h3 {
+				margin: 0;
+			}
+
+			p {
+				margin: 0;
+			}
+		}
+
+		&_photo {
+			display: flex;
+			justify-content: center;
+			margin: 10px;
+
+			span {
+				width: 10em !important;
+				height: 10em !important;
+			}
+
+			img {
+				border: 3px solid #e3e3e3;
+				padding: 4px;
+				animation-name: example;
+  			animation-duration: 5s;
+				animation-iteration-count: infinite;
+			}
+
+			@keyframes example {
+				0% {filter: drop-shadow(-25px -25px 1rem #fe4ef3);}
+				25% {filter: drop-shadow(-150px -150px 1rem #4ee4fe);}
+				50% {filter: drop-shadow(25px 25px 1rem #4ee4fe);}
+				75% {filter: drop-shadow(250px 250px 1rem #fe4ef3);}
+				100% {filter: drop-shadow(-10px -10px 1rem #fe4ef3);}
+			}
+		}
+
+		&_body {
+			display: flex;
+			flex-direction: column;
+
+			> div {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+
+				>div {
+					margin: 0 35px;
+					flex: 1;
+					border-bottom: 1px dotted #e3e3e3;
+				}
+			}
+		}
+	}
+
+	&__divider {
+		width: 5%;
+	}
+
+	&__userInfo {
+		width: 40%;
+		margin: 0 auto;
+
+		&_header {
+			margin-bottom: 15px;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+
+			> h3 {
+				margin: 0;
+			}
+
+			> button {
+				margin: 0;
+			}
+		}
+
+		.with-label {
+			width: 100% !important;
+
+			.input-container {
+				width: 100%;
+			}
+		}
+
+		.with-label + .with-label {
+			margin-top: 1em;
+		}
+
+		&_countryWrapper {
+			margin-top: 1em;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+
+			> div {
+				flex: 1;
+			}
+
+			> div+div {
+				margin-left: 5px;
+			}
+		}
+
+		&_country {
+			display: inline-flex;
+			align-items: center;
+			user-select: none;
+			white-space: nowrap;
+			position: relative;
+			cursor: pointer;
+			max-width: 90vw;
+			overflow: hidden;
+			transition: border 150ms ease-in 0s,color 200ms ease-out 0s, box-shadow 200ms ease 0s;
+			border: 1px solid #eaeaea;
+			border-radius: 5px;
+			background-color: #fff;
+			--select-font-size: calc(0.875 * 16px);
+			--select-height: calc(2.25 * 16px);
+			min-width: 11.5em;
+			width: 100%;
+			height: var(--select-height);
+			padding: 0 calc(0.334 * 16px) 0 calc(0.667 * 16px);
+			margin: 0 0 0 0;
+		}
+
+		&_country:hover {
+			border-color: #000;
+		}
+
+		&_submit {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			padding: 10px;
+			display: flex;
+			justify-content: center;
+			margin-top: 1em;
+		}
+	}
+}

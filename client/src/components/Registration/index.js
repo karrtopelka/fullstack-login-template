@@ -1,10 +1,12 @@
 import { Button, Card, Grid, Input, Spacer, Text, useToasts } from '@geist-ui/react';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import { UserContext } from '../..';
 import { registration } from '../../actions/user';
 import './registration.scss';
 
-const Registration = ({ user }) => {
+const Registration = () => {
+  const user = useContext(UserContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');

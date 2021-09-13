@@ -6,14 +6,17 @@ import reportWebVitals from './reportWebVitals';
 import { GeistProvider, CssBaseline } from '@geist-ui/react';
 import 'inter-ui/inter.css';
 import User from './stateHandler/User';
+import { createContext } from 'react';
 
-const user = new User();
+export const UserContext = createContext(User);
 
 ReactDOM.render(
   <React.StrictMode>
     <GeistProvider>
       <CssBaseline />
-      <App user={user} />
+      <UserContext.Provider value={new User()}>
+        <App />
+      </UserContext.Provider>
     </GeistProvider>
   </React.StrictMode>,
   document.getElementById('root'),

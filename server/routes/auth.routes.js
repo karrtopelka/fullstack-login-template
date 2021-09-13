@@ -49,7 +49,7 @@ router.post(
       });
     } catch (err) {
       console.warn(err);
-      res.json({
+      res.status(400).json({
         message: 'Error while submitting registration',
       });
     }
@@ -71,24 +71,16 @@ router.post('/login', async (req, res) => {
       return res.status(400).json({ message: 'Password is incorrect' });
     }
 
-    const { id, email: userEmail, name, lastName, avatar } = user;
-
     const token = jwt.sign({ id: user.id }, config.get('secretKeyJwt'), { expiresIn: '1hr' });
 
     return res.json({
       token,
-      user: {
-        _id: id,
-        email: userEmail,
-        name,
-        lastName,
-        avatar,
-      },
+      user,
       message: 'Successful login',
     });
   } catch (err) {
     console.warn(err);
-    res.json({
+    res.status(400).json({
       message: 'Error while submitting login',
     });
   }
@@ -98,24 +90,16 @@ router.get('/auth', authMiddleware, async (req, res) => {
   try {
     const user = await User.findOne({ _id: req.user.id });
 
-    const { id, email: userEmail, name, lastName, avatar } = user;
-
     const token = jwt.sign({ id: user.id }, config.get('secretKeyJwt'), { expiresIn: '1h' });
 
     return res.json({
       token,
-      user: {
-        _id: id,
-        email: userEmail,
-        name,
-        lastName,
-        avatar,
-      },
+      user,
       message: 'Successful login',
     });
   } catch (err) {
     console.warn(err);
-    res.json({
+    res.status(400).json({
       message: err.message,
     });
   }
