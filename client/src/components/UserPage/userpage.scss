@@ -50,7 +50,7 @@
 				0% {filter: drop-shadow(-25px -25px 1rem #fe4ef3);}
 				25% {filter: drop-shadow(-150px -150px 1rem #4ee4fe);}
 				50% {filter: drop-shadow(25px 25px 1rem #4ee4fe);}
-				75% {filter: drop-shadow(250px 250px 1rem #fe4ef3);}
+				75% {filter: drop-shadow(350px 350px 1rem #4ee4fe);}
 				100% {filter: drop-shadow(-10px -10px 1rem #fe4ef3);}
 			}
 		}
@@ -80,6 +80,22 @@
 	&__userInfo {
 		width: 40%;
 		margin: 0 auto;
+
+		> form {
+			> .flexed {
+				display: flex;
+				align-items: center;
+				margin-bottom: 1em;
+
+				> .with-label {
+					margin-top: 0;
+				}
+	
+				> .avatar-upload {
+					height: 100%;
+				}
+			}
+		}
 
 		&_header {
 			margin-bottom: 15px;

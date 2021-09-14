@@ -5,6 +5,7 @@ import { CountryDropdown, RegionDropdown } from 'react-country-region-selector';
 import { useHistory } from 'react-router';
 import { UserContext } from '../..';
 import { infoUpdate } from '../../actions/user';
+import AvatarUpload from '../AvatarUpload';
 
 const EditUserInfo = observer(() => {
   const user = useContext(UserContext);
@@ -13,7 +14,7 @@ const EditUserInfo = observer(() => {
   const [submitClicked, setSubmitClicked] = useState(false);
   const history = useHistory();
 
-  const handleInput = (value, field) => {		
+  const handleInput = (value, field) => {
     if (!isDataTouched) {
       setIsDataTouched(() => true);
     }
@@ -89,23 +90,26 @@ const EditUserInfo = observer(() => {
         </Input>
         <Input
           htmlType='text'
-          onChange={(e) => user.setLastName(e.target.value)}
+          onChange={(e) => handleInput(e.target.value, 'lastName')}
           placeholder={user.lastName}
           value={user.lastName}>
           <Text h5>Last name</Text>
         </Input>
-        <Input
-          htmlType='url'
-          onChange={(e) => user.setAvatar(e.target.value)}
-          placeholder={user.avatar}
-          value={user.avatar}>
-          <Text h5>Avatar (url)</Text>
-        </Input>
+        <div className="with-label flexed">
+          <Input
+            htmlType='url'
+            onChange={(e) => handleInput(e.target.value, 'avatar')}
+            placeholder={user.avatar}
+            value={user.avatar}>
+            <Text h5>Avatar (url)</Text>
+          </Input>
+          <AvatarUpload />
+        </div>
         <Input
           min={0}
           max={100}
           htmlType='number'
-          onChange={(e) => user.setAge(e.target.value)}
+          onChange={(e) => handleInput(e.target.value, 'age')}
           placeholder={user.age}
           value={user.age}>
           <Text h5>Age</Text>

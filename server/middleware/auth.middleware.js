@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const config = require('config');
+require('dotenv').config();
 
 module.exports = (req, res, next) => {
   if (req.method === 'OPTIONS') {
@@ -13,7 +13,7 @@ module.exports = (req, res, next) => {
       return res.status(400).json({ message: 'Authorization failed.' });
     }
 
-    const decoded = jwt.verify(token.replace(/^"(.*)"$/, '$1'), config.get('secretKeyJwt'));
+    const decoded = jwt.verify(token.replace(/^"(.*)"$/, '$1'), process.env.SECRET_KEY_JWT);
 
     req.user = decoded;
 

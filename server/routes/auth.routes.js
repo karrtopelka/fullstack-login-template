@@ -3,10 +3,11 @@ const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 const { check, validationResult } = require('express-validator');
 const jwt = require('jsonwebtoken');
-const config = require('config');
 const authMiddleware = require('../middleware/auth.middleware');
+require('dotenv').config();
 
 const router = new Router();
+const jwtSecretKey = process.env.SECRET_KEY_JWT;
 
 router.post(
   '/registration',
@@ -40,7 +41,7 @@ router.post(
 
       const { password, __v, ...sendUser } = JSON.parse(JSON.stringify(user));
 
-      const token = jwt.sign({ id: user.id }, config.get('secretKeyJwt'), { expiresIn: '1hr' });
+      const token = jwt.sign({ id: user.id }, jwtSecretKey, { expiresIn: '1hr' });
 
       return res.json({
         message: 'Registration successful',
@@ -71,7 +72,7 @@ router.post('/login', async (req, res) => {
       return res.status(400).json({ message: 'Password is incorrect' });
     }
 
-    const token = jwt.sign({ id: user.id }, config.get('secretKeyJwt'), { expiresIn: '1hr' });
+    const token = jwt.sign({ id: user.id }, jwtSecretKey, { expiresIn: '1hr' });
 
     return res.json({
       token,
@@ -90,7 +91,7 @@ router.get('/auth', authMiddleware, async (req, res) => {
   try {
     const user = await User.findOne({ _id: req.user.id });
 
-    const token = jwt.sign({ id: user.id }, config.get('secretKeyJwt'), { expiresIn: '1h' });
+    const token = jwt.sign({ id: user.id }, jwtSecretKey, { expiresIn: '1h' });
 
     return res.json({
       token,

@@ -1,5 +1,0 @@
-{
-  "serverPort": 7000,
-  "mongoUrl": "mongodb+srv://karrtopelka:M2A0X0M2ongo@last-pass.ufckw.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
-  "secretKeyJwt": "krrtp-last-pass"
-}
