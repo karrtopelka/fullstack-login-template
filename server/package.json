@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
+    "predev": "node -e console.clear()",
     "dev": "nodemon index.js"
   },
   "keywords": [
@@ -15,13 +16,17 @@
   "author": "Max Karrtopelka karrtopelka@gmail.com",
   "license": "ISC",
   "dependencies": {
+    "aws-sdk": "^2.991.0",
     "bcryptjs": "^2.4.3",
     "config": "^3.3.6",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "express-validator": "^6.12.1",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^6.0.4"
+    "mongoose": "^6.0.6",
+    "multer": "^1.4.3",
+    "multer-s3": "^2.9.0",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "nodemon": "^2.0.12"

@@ -12,11 +12,13 @@ app.use(express.json());
 app.use(corsMiddleware);
 app.use('/api/auth', authRouter);
 app.use('/api/user', userRouter);
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 const start = async () => {
   try {
     const uri = process.env.MONGO_URL;
-    mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+    await mongoose.connect(uri);
 
     app.listen(PORT, () => {
       console.log(`server started on port ${PORT}`);

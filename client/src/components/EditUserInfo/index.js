@@ -1,11 +1,14 @@
-import { Button, Dot, Input, Text, Tooltip, useToasts } from '@geist-ui/react';
-import { observer } from 'mobx-react-lite';
+import { Button, Dot, Input, Spacer, Text, Tooltip, useToasts } from '@geist-ui/react';
+import { observer } from 'mobx-react';
 import React, { useContext, useState } from 'react';
 import { CountryDropdown, RegionDropdown } from 'react-country-region-selector';
 import { useHistory } from 'react-router';
 import { UserContext } from '../..';
 import { infoUpdate } from '../../actions/user';
 import AvatarUpload from '../AvatarUpload';
+import { Plus, X } from '@geist-ui/react-icons';
+import { toJS } from 'mobx';
+import UserSocials from '../UserSocials';
 
 const EditUserInfo = observer(() => {
   const user = useContext(UserContext);
@@ -47,11 +50,12 @@ const EditUserInfo = observer(() => {
       age: user.age,
       country: user.country,
       region: user.region,
+      socials: toJS(user.socials),
     });
     if (r) {
       setToast({
         text: r.data.message,
-        type: r.status === 400 ? 'error' : 'success',
+        type: r.status !== 200 ? 'error' : 'success',
         delay: 5000,
       });
       if (r.status === 200) {
@@ -72,8 +76,8 @@ const EditUserInfo = observer(() => {
 
   return (
     <div className='userpage__userInfo'>
-      <div className='userpage__userInfo_header'>
-        <Text h3>Edit your information</Text>
+      <div className='userpage__userInfo-header'>
+        <Text h3>Edit your general information</Text>
         <Tooltip text='Email and password' placement='top' trigger='hover'>
           <Button type='secondary' ghost onClick={handleEditPrivate}>
             Edit private info
@@ -95,7 +99,7 @@ const EditUserInfo = observer(() => {
           value={user.lastName}>
           <Text h5>Last name</Text>
         </Input>
-        <div className="with-label flexed">
+        <div className='with-label flexed'>
           <Input
             htmlType='url'
             onChange={(e) => handleInput(e.target.value, 'avatar')}
@@ -106,7 +110,7 @@ const EditUserInfo = observer(() => {
           <AvatarUpload />
         </div>
         <Input
-          min={0}
+          min={1}
           max={100}
           htmlType='number'
           onChange={(e) => handleInput(e.target.value, 'age')}
@@ -114,11 +118,11 @@ const EditUserInfo = observer(() => {
           value={user.age}>
           <Text h5>Age</Text>
         </Input>
-        <div className='userpage__userInfo_countryWrapper'>
+        <div className='with-label userpage__userInfo-country-wrapper'>
           <div>
             <Text h5>Country</Text>
             <CountryDropdown
-              className='userpage__userInfo_country'
+              className='userpage__userInfo-country'
               value={user.country}
               onChange={selectCountry}
             />
@@ -126,7 +130,7 @@ const EditUserInfo = observer(() => {
           <div>
             <Text h5>Region</Text>
             <RegionDropdown
-              className='userpage__userInfo_country'
+              className='userpage__userInfo-country'
               disableWhenEmpty={true}
               country={user.country}
               value={user.region}
@@ -134,29 +138,27 @@ const EditUserInfo = observer(() => {
             />
           </div>
         </div>
+        <UserSocials isDataTouched={isDataTouched} setIsDataTouched={setIsDataTouched} />
         <div className='with-label userpage__userInfo_submit'>
-          <div />
           <Button
             shadow
             type='success'
-            disabled={submitClicked}
+            disabled={submitClicked || !isDataTouched}
             loading={submitClicked}
             htmlType='submit'>
             Save changes
           </Button>
-          <div>
-            {isDataTouched ? (
-              <Text>
-                <Dot style={{ marginLeft: '15px' }} type='warning' />
-                Changes are not saved yet
-              </Text>
-            ) : (
-              <Text>
-                <Dot style={{ marginLeft: '15px' }} type='success' />
-                Changes are up to date
-              </Text>
-            )}
-          </div>
+          {isDataTouched ? (
+            <Text>
+              <Dot style={{ marginLeft: '15px' }} type='warning' />
+              Changes are not saved yet
+            </Text>
+          ) : (
+            <Text>
+              <Dot style={{ marginLeft: '15px' }} type='success' />
+              Changes are up to date
+            </Text>
+          )}
         </div>
       </form>
     </div>

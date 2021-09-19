@@ -28,6 +28,9 @@ const User = new Schema({
   region: {
     type: String,
   },
+  socials: {
+    type: Array,
+  }
 });
 
 module.exports = model('User', User);

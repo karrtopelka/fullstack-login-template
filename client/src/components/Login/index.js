@@ -22,7 +22,7 @@ const Login = () => {
       setResponse(r);
       setToast({
         text: r.data.message,
-        type: r.status === 400 ? 'error' : 'success',
+        type: r.status !== 200 ? 'error' : 'success',
         delay: 5000,
       });
       if (r.status === 200) {
@@ -50,9 +50,9 @@ const Login = () => {
           <Text h4 className='login__title' align='center'>
             Login
           </Text>
-          <form className='login__form'>
+          <form onSubmit={handleSubmit} className='login__form'>
             <Input
-              htmlType='email'
+              pattern='^[\w\-\.]+@([\w\-]+\.)+[\w]*'
               clearable
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -74,9 +74,8 @@ const Login = () => {
               loading={submitClicked}
               disabled={submitClicked}
               auto
-              type={response?.status === 400 ? 'error' : 'success'}
-              htmlType='submit'
-              onClick={(e) => handleSubmit(e)}>
+              type={response?.status >= 400 ? 'error' : 'success'}
+              htmlType='submit'>
               Login
             </Button>
           </form>

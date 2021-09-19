@@ -23,7 +23,9 @@ router.post(
       const validation = validationResult(req);
 
       if (!validation.isEmpty()) {
-        return res.status(400).json({ message: 'validation failed.', validation });
+        return res
+          .status(400)
+          .json({ message: `Validation failed. ${validation.errors[0].msg}`, validation });
       }
 
       const { email, password: enteredPassword } = req.body;
@@ -91,13 +93,17 @@ router.get('/auth', authMiddleware, async (req, res) => {
   try {
     const user = await User.findOne({ _id: req.user.id });
 
-    const token = jwt.sign({ id: user.id }, jwtSecretKey, { expiresIn: '1h' });
+    if (user) {
+      const token = jwt.sign({ id: user.id }, jwtSecretKey, { expiresIn: '1h' });
 
-    return res.json({
-      token,
-      user,
-      message: 'Successful login',
-    });
+      return res.json({
+        token,
+        user,
+        message: 'Successful login',
+      });
+    }
+
+    return res.status(400).json({ message: 'You are not signed in' });
   } catch (err) {
     console.warn(err);
     res.status(400).json({

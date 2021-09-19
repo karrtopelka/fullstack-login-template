@@ -60,7 +60,7 @@ export const auth = async () => {
   }
 };
 
-export const infoUpdate = async ({ id, name, lastName, avatar, age, country, region }) => {
+export const infoUpdate = async ({ id, name, lastName, avatar, age, country, region, socials }) => {
   try {
     const response = await axios.patch(`${local}/user/update`, {
       id,
@@ -70,6 +70,7 @@ export const infoUpdate = async ({ id, name, lastName, avatar, age, country, reg
       age,
       country,
       region,
+      socials
     });
 
     return response;
@@ -88,6 +89,37 @@ export const privateInfoUpdate = async ({ id, email, password }) => {
     });
 
     localStorage.removeItem('token');
+
+    return response;
+  } catch (err) {
+    console.warn(err);
+    return err.response;
+  }
+};
+
+export const avatarUpdate = async ({ id, avatar }) => {
+  try {
+    const formData = new FormData();
+
+    formData.append('avatar', avatar);
+    formData.append('userId', id);
+
+    const response = await axios.post(`${local}/user/avatar`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+
+    return response;
+  } catch (err) {
+    console.warn(err);
+    return err.response;
+  }
+};
+
+export const getUser = async ({ id }) => {
+  try {
+    const response = await axios.get(`${local}/user/${id}`);
 
     return response;
   } catch (err) {

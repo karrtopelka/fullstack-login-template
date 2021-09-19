@@ -1,5 +1,5 @@
 import { Button, Dot, Input, Text, Tooltip, useToasts } from '@geist-ui/react';
-import { observer } from 'mobx-react-lite';
+import { observer } from 'mobx-react';
 import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router';
 import { UserContext } from '../..';
@@ -61,13 +61,13 @@ const EditUserPrivateInfo = observer(() => {
     if (r) {
       setToast({
         text: r.data.message,
-        type: r.status === 400 ? 'error' : 'success',
+        type: r.status !== 200 ? 'error' : 'success',
         delay: 5000,
       });
 
       if (r.status === 200) {
         user.setUser({ ...r.data.user });
-        
+
         setIsDataTouched(false);
 
         user.reset();
@@ -107,7 +107,7 @@ const EditUserPrivateInfo = observer(() => {
       </div>
       <form onSubmit={handleSubmit}>
         <Input
-          htmlType='email'
+          pattern='^[\w\-\.]+@([\w\-]+\.)+[\w]*'
           onChange={(e) => handleInput(e.target.value, 'email')}
           placeholder={user.email}
           value={user.email}>
@@ -115,6 +115,7 @@ const EditUserPrivateInfo = observer(() => {
         </Input>
         <Input.Password
           type={!arePasswordsSame && 'error'}
+          minLength='8'
           onChange={(e) => handlePasswordInputs(e.target.value, 'password')}
           placeholder={password}
           value={password}>
@@ -127,6 +128,7 @@ const EditUserPrivateInfo = observer(() => {
         </Input.Password>
         <Input.Password
           type={!arePasswordsSame && 'error'}
+          minLength='8'
           onChange={(e) => handlePasswordInputs(e.target.value, 'passwordRepeat')}
           placeholder={passwordRepeat}
           value={passwordRepeat}>
@@ -137,13 +139,12 @@ const EditUserPrivateInfo = observer(() => {
           <Button
             shadow
             type='success'
-            disabled={submitClicked || !arePasswordsSame}
+            disabled={submitClicked || !arePasswordsSame || !isDataTouched}
             loading={submitClicked}
             htmlType='submit'>
             Save changes
           </Button>
-          <div>
-            {isDataTouched ? (
+          {isDataTouched ? (
               <Text>
                 <Dot style={{ marginLeft: '15px' }} type='warning' />
                 Changes are not saved yet
@@ -154,7 +155,6 @@ const EditUserPrivateInfo = observer(() => {
                 Changes are up to date
               </Text>
             )}
-          </div>
         </div>
       </form>
     </div>

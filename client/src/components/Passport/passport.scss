@@ -1,0 +1,96 @@
+.passport {
+  margin: 0 2% 0 0;
+  flex: 1;
+
+  .card {
+    height: max-content !important;
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    h3 {
+      margin: 0;
+    }
+
+    p {
+      margin: 0;
+    }
+
+    &-photo {
+      display: flex;
+      justify-content: center;
+      margin: 10px;
+
+      span {
+        width: 10em !important;
+        height: 10em !important;
+      }
+
+      img {
+        border: 3px solid #e3e3e3;
+        padding: 4px;
+        animation-name: example;
+        animation-duration: 5s;
+        animation-iteration-count: infinite;
+      }
+    }
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+
+    &-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      > div {
+        margin: 0 35px;
+        flex: 1;
+        border-bottom: 1px dotted #e3e3e3;
+      }
+
+      .social {
+        width: 2em !important;
+        height: 2em !important;
+        transition: all 0.2s ease-in-out;
+      }
+
+      .social + .social {
+        margin-left: 1em;
+      }
+
+      .social:hover {
+        filter: drop-shadow(0 3px 0.3rem #a1a1a188);
+      }
+    }
+
+    &-flag {
+      width: 1.5em !important;
+      margin-right: 10px;
+			filter: drop-shadow(0 1px 0.2rem #e3e3e3);
+    }
+  }
+}
+
+@keyframes example {
+  0% {
+    filter: drop-shadow(-25px -25px 1rem #fe4ef3);
+  }
+  25% {
+    filter: drop-shadow(-150px -150px 1rem #4ee4fe);
+  }
+  50% {
+    filter: drop-shadow(25px 25px 1rem #4ee4fe);
+  }
+  75% {
+    filter: drop-shadow(350px 350px 1rem #4ee4fe);
+  }
+  100% {
+    filter: drop-shadow(-10px -10px 1rem #fe4ef3);
+  }
+}

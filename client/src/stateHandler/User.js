@@ -8,9 +8,10 @@ class User {
   lastName = '';
   isAuth = false;
   avatar = '';
-  age = null;
+  age = 0;
   country = '';
   region = '';
+  socials = [];
 
   constructor() {
     makeAutoObservable(this);
@@ -25,6 +26,7 @@ class User {
     this.age = user?.age;
     this.country = user?.country;
     this.region = user?.region;
+    this.socials = user?.socials;
     this.isAuth = true;
   }
 
@@ -60,6 +62,10 @@ class User {
     this.region = region;
   }
 
+  setSocials(socials) {
+    this.socials = socials;
+  }
+
   reset() {
     this._id = '';
     this.email = '';
@@ -69,6 +75,7 @@ class User {
     this.age = null;
     this.country = '';
     this.region = '';
+    this.socials = [];
     this.isAuth = false;
   }
 }

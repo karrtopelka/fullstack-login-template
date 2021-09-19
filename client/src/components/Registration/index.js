@@ -23,7 +23,7 @@ const Registration = () => {
       setResponse(r);
       setToast({
         text: r.data.message,
-        type: r.status === 400 ? 'error' : 'success',
+        type: r.status !== 200 ? 'error' : 'success',
         delay: 5000,
       });
       if (r.status === 200) {
@@ -51,9 +51,9 @@ const Registration = () => {
           <Text h4 className='registration__title' align='center'>
             Registration
           </Text>
-          <form className='registration__form'>
+          <form onSubmit={handleSubmit} className='registration__form'>
             <Input
-              htmlType='email'
+              pattern='^[\w\-\.]+@([\w\-]+\.)+[\w]*'
               clearable
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -85,9 +85,8 @@ const Registration = () => {
               loading={submitClicked}
               disabled={submitClicked}
               auto
-              type={response?.status === 400 ? 'error' : 'success'}
-              htmlType='submit'
-              onClick={(e) => handleSubmit(e)}>
+              type={response?.status >= 400 ? 'error' : 'success'}
+              htmlType='submit'>
               Sign Up
             </Button>
           </form>
